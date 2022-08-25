@@ -16,6 +16,9 @@ function App() {
         },
       })
       .then((result) => {
+        if (result.data.sys.country !== 'HU') {
+          return toast.error('This city is not located in Hungary');
+        }
         setWeatherData(result.data);
       })
       .catch((error) => {
@@ -84,7 +87,12 @@ function App() {
     <div>
       <Container fluid className="mt-5 row justify-content-center">
         <Form className="w-50 row">
-          <h2>Weather App</h2>
+          <div className="d-flex">
+            <h2>Weather App</h2>
+            <div className="d-flex ms-1 align-items-end">
+              Search only applies to the cities and towns of Hungary
+            </div>
+          </div>
           <Form.Control
             onChange={(e) => {
               setCity(e.target.value);
